@@ -1,0 +1,338 @@
+{
+    "project": {
+        "name": "jquery.filler",
+        "version": "0.0.0"
+    },
+    "files": {
+        "src/__jquery.filler/attribute.js": {
+            "name": "src/__jquery.filler/attribute.js",
+            "modules": {
+                "attribute": 1
+            },
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/__jquery.filler/element.js": {
+            "name": "src/__jquery.filler/element.js",
+            "modules": {
+                "element": 1
+            },
+            "classes": {
+                "elFillers": 1
+            },
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/__jquery.filler/helpers.js": {
+            "name": "src/__jquery.filler/helpers.js",
+            "modules": {
+                "helpers": 1
+            },
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/__jquery.filler/single.js": {
+            "name": "src/__jquery.filler/single.js",
+            "modules": {
+                "singleFiller": 1
+            },
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/index.js": {
+            "name": "src/index.js",
+            "modules": {
+                "JqueryFiller": 1
+            },
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        }
+    },
+    "modules": {
+        "jquery.filler": {
+            "name": "jquery.filler",
+            "submodules": {
+                "attribute": 1,
+                "element": 1,
+                "helpers": 1,
+                "singleFiller": 1
+            },
+            "classes": {
+                "elFillers": 1
+            },
+            "fors": {},
+            "namespaces": {},
+            "file": "src/__jquery.filler/element.js",
+            "line": 12
+        },
+        "attribute": {
+            "name": "attribute",
+            "submodules": {},
+            "classes": {},
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {},
+            "module": "jquery.filler",
+            "namespace": "",
+            "file": "src/__jquery.filler/attribute.js",
+            "line": 1
+        },
+        "element": {
+            "name": "element",
+            "submodules": {},
+            "classes": {
+                "elFillers": 1
+            },
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {},
+            "module": "jquery.filler",
+            "namespace": "",
+            "file": "src/__jquery.filler/element.js",
+            "line": 12,
+            "description": "Holds the html tag elFillers."
+        },
+        "helpers": {
+            "name": "helpers",
+            "submodules": {},
+            "classes": {},
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {},
+            "module": "jquery.filler",
+            "namespace": "",
+            "file": "src/__jquery.filler/helpers.js",
+            "line": 1
+        },
+        "singleFiller": {
+            "name": "singleFiller",
+            "submodules": {},
+            "classes": {},
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {},
+            "module": "jquery.filler",
+            "namespace": "",
+            "file": "src/__jquery.filler/single.js",
+            "line": 1,
+            "description": "Defines functionality for creating a filler for a single\nelement/element-attribute."
+        },
+        "JqueryFiller": {
+            "name": "JqueryFiller",
+            "submodules": {},
+            "classes": {},
+            "fors": {},
+            "namespaces": {},
+            "tag": "module",
+            "file": "src/index.js",
+            "line": 5,
+            "description": "AMD module."
+        }
+    },
+    "classes": {
+        "elFillers": {
+            "name": "elFillers",
+            "shortname": "elFillers",
+            "classitems": [],
+            "plugins": [],
+            "extensions": [],
+            "plugin_for": [],
+            "extension_for": [],
+            "module": "jquery.filler",
+            "submodule": "element",
+            "namespace": "",
+            "file": "src/__jquery.filler/element.js",
+            "line": 12,
+            "description": "Holds the html tag elFillers.",
+            "static": 1
+        }
+    },
+    "classitems": [
+        {
+            "file": "src/__jquery.filler/attribute.js",
+            "line": 14,
+            "description": "Generates a filler function for an attribute.",
+            "itemtype": "method",
+            "name": "attributeFiller",
+            "params": [
+                {
+                    "name": "$el",
+                    "description": "The element on which perform task",
+                    "type": "JQuery"
+                },
+                {
+                    "name": "attributeSelector",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "elFillers",
+            "module": "jquery.filler",
+            "submodule": "attribute"
+        },
+        {
+            "file": "src/__jquery.filler/attribute.js",
+            "line": 25,
+            "itemtype": "method",
+            "name": "fillAttribute",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "*"
+                }
+            ],
+            "class": "elFillers",
+            "module": "jquery.filler",
+            "submodule": "attribute"
+        },
+        {
+            "file": "src/__jquery.filler/element.js",
+            "line": 23,
+            "description": "intercept only filling for checkboxes and radios\nas the default jquery .val() method sets the checkboxes and radio input\nvalues instead of checking them (if the value is not passed in as an array)",
+            "class": "elFillers",
+            "module": "jquery.filler",
+            "submodule": "element"
+        },
+        {
+            "file": "src/__jquery.filler/element.js",
+            "line": 50,
+            "description": "Generates a filler function.",
+            "itemtype": "method",
+            "name": "elementFiller",
+            "params": [
+                {
+                    "name": "$el",
+                    "description": "The element on which perform task",
+                    "type": "JQuery"
+                }
+            ],
+            "class": "elFillers",
+            "module": "jquery.filler",
+            "submodule": "element"
+        },
+        {
+            "file": "src/__jquery.filler/element.js",
+            "line": 60,
+            "description": "Fills the element with a given value,\nusing different 'filling-strategies' for each html tag.",
+            "itemtype": "method",
+            "name": "fillElement",
+            "params": [
+                {
+                    "name": "value",
+                    "description": ""
+                }
+            ],
+            "class": "elFillers",
+            "module": "jquery.filler",
+            "submodule": "element"
+        },
+        {
+            "file": "src/__jquery.filler/helpers.js",
+            "line": 16,
+            "itemtype": "method",
+            "name": "splitInto",
+            "params": [
+                {
+                    "name": "string",
+                    "description": "string to be split",
+                    "type": "String"
+                },
+                {
+                    "name": "separator",
+                    "description": "",
+                    "type": "String"
+                },
+                {
+                    "name": "format",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "",
+            "module": "jquery.filler",
+            "submodule": "helpers"
+        },
+        {
+            "file": "src/__jquery.filler/single.js",
+            "line": 19,
+            "description": "Creates a filler function for a single $el/$el attribute.",
+            "itemtype": "method",
+            "name": "singleFiller",
+            "params": [
+                {
+                    "name": "$parent",
+                    "description": "",
+                    "type": "Jquery"
+                },
+                {
+                    "name": "selector",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "",
+            "module": "jquery.filler",
+            "submodule": "singleFiller"
+        },
+        {
+            "file": "src/index.js",
+            "line": 19,
+            "description": "Generates a fill function.",
+            "itemtype": "method",
+            "name": "filler",
+            "params": [
+                {
+                    "name": "$el",
+                    "description": "defaults to 'this'",
+                    "type": "JQuery wrapper",
+                    "optional": true
+                },
+                {
+                    "name": "map",
+                    "description": "\n    Hash of property names, keyed by sizzle selector.\n    { selector: propName }",
+                    "type": "Object"
+                }
+            ],
+            "class": "",
+            "module": "JqueryFiller"
+        },
+        {
+            "file": "src/index.js",
+            "line": 31,
+            "description": "If the function was invoked with only one argument,\nit means that it was invoked as a '$parent's method.",
+            "class": "",
+            "module": "JqueryFiller"
+        },
+        {
+            "file": "src/index.js",
+            "line": 45,
+            "description": "Receives a data hash keyed by selector.",
+            "itemtype": "method",
+            "name": "fill",
+            "params": [
+                {
+                    "name": "data",
+                    "description": "\n    Hash of values, keyed by the propNames defined before.\n    { propName: value }",
+                    "type": "Object"
+                }
+            ],
+            "class": "",
+            "module": "JqueryFiller"
+        }
+    ],
+    "warnings": [
+        {
+            "message": "Missing item type\nintercept only filling for checkboxes and radios\nas the default jquery .val() method sets the checkboxes and radio input\nvalues instead of checking them (if the value is not passed in as an array)",
+            "line": " src/__jquery.filler/element.js:23"
+        },
+        {
+            "message": "Missing item type\nIf the function was invoked with only one argument,\nit means that it was invoked as a '$parent's method.",
+            "line": " src/index.js:31"
+        }
+    ]
+}

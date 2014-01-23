@@ -1,0 +1,17 @@
+{
+  "name": "jquery.filler",
+  "main": "built/jquery.filler.js",
+  "version": "0.0.0",
+  "description": "Some module...",
+  "dependencies": {
+    "jquery": "~2.0.3",
+    "lodash": "~2.4.1"
+  },
+  "devDependencies": {
+    "requirejs": "*",
+    "requirejs-text": "*",
+    "underscore": "*",
+    "jquery": "*",
+    "qunit": "*"
+  }
+}

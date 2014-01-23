@@ -1,0 +1,1 @@
+define(["require","exports","module","jquery","lodash","./helpers"],function(e,t,n){var r=e("jquery"),i=e("lodash"),s=e("./helpers"),o=n.exports=function(t,n){var r=s.splitInto(n,":","method:attribute");return function(n){return t[r.method](r.attribute,n)}}});

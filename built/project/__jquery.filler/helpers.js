@@ -1,0 +1,1 @@
+define(["require","exports","module","lodash"],function(e,t,n){var r=e("lodash");t.splitter=function(t){return new RegExp("\\s*"+t+"\\s*")},t.splitInto=function(n,i,s){i=t.splitter(i),s=s.split(i);var o=n.split(i);return r.zipObject(s,o)}});
