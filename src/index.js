@@ -40,6 +40,18 @@ define(function (require, exports, module) {
 			fillers[prop] = singleFiller($parent, selector);
 		});
 
+
+		/**
+		 * Var that holds the last set data.
+		 * These values will be verified before calling
+		 * any filler, so that constant values are not "re-filled"
+		 * in the dom.
+		 *
+		 * @prop currentData
+		 * @private
+		 */
+		var currentData = {};
+
 		/**
 		 * Receives a data hash keyed by selector.
 		 *
@@ -50,8 +62,16 @@ define(function (require, exports, module) {
 		 */
 		return function fill(data) {
 			_.each(data, function (value, prop) {
-				// fillers is stored in the closure.
-				fillers[prop](value);
+
+				// only fill the DOM with the value if it is different
+				// from the current value.
+				if (currentData[prop] !== value) {
+					// fillers is stored in the closure.
+					fillers[prop](value);
+
+					// set currentData
+					currentData[prop] = value;
+				}
 			});
 		};
 	};
