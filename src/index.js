@@ -1,11 +1,9 @@
-//     JqueryFiller
+//     jquery.filler
 //     (c) simonfan
-//     JqueryFiller is licensed under the MIT terms.
+//     jquery.filler is licensed under the MIT terms.
 
 /**
- * AMD module.
- *
- * @module JqueryFiller
+ * @module jquery.filler
  */
 
 define(function (require, exports, module) {

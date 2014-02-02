@@ -45,7 +45,7 @@
         "src/index.js": {
             "name": "src/index.js",
             "modules": {
-                "JqueryFiller": 1
+                "jquery.filler": 1
             },
             "classes": {},
             "fors": {},
@@ -66,6 +66,7 @@
             },
             "fors": {},
             "namespaces": {},
+            "tag": "module",
             "file": "src/__jquery.filler/element.js",
             "line": 12
         },
@@ -120,17 +121,6 @@
             "file": "src/__jquery.filler/single.js",
             "line": 1,
             "description": "Defines functionality for creating a filler for a single\nelement/element-attribute."
-        },
-        "JqueryFiller": {
-            "name": "JqueryFiller",
-            "submodules": {},
-            "classes": {},
-            "fors": {},
-            "namespaces": {},
-            "tag": "module",
-            "file": "src/index.js",
-            "line": 5,
-            "description": "AMD module."
         }
     },
     "classes": {
@@ -281,7 +271,7 @@
         },
         {
             "file": "src/index.js",
-            "line": 19,
+            "line": 17,
             "description": "Generates a fill function.",
             "itemtype": "method",
             "name": "filler",
@@ -299,18 +289,18 @@
                 }
             ],
             "class": "",
-            "module": "JqueryFiller"
+            "module": "jquery.filler"
         },
         {
             "file": "src/index.js",
-            "line": 31,
+            "line": 29,
             "description": "If the function was invoked with only one argument,\nit means that it was invoked as a '$parent's method.",
             "class": "",
-            "module": "JqueryFiller"
+            "module": "jquery.filler"
         },
         {
             "file": "src/index.js",
-            "line": 45,
+            "line": 43,
             "description": "Receives a data hash keyed by selector.",
             "itemtype": "method",
             "name": "fill",
@@ -322,7 +312,7 @@
                 }
             ],
             "class": "",
-            "module": "JqueryFiller"
+            "module": "jquery.filler"
         }
     ],
     "warnings": [
@@ -332,7 +322,7 @@
         },
         {
             "message": "Missing item type\nIf the function was invoked with only one argument,\nit means that it was invoked as a '$parent's method.",
-            "line": " src/index.js:31"
+            "line": " src/index.js:29"
         }
     ]
 }

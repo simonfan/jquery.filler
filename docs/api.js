@@ -4,7 +4,6 @@ YUI.add("yuidoc-meta", function(Y) {
         "elFillers"
     ],
     "modules": [
-        "JqueryFiller",
         "attribute",
         "element",
         "helpers",
@@ -28,11 +27,6 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "jquery.filler",
             "name": "jquery.filler"
-        },
-        {
-            "displayName": "JqueryFiller",
-            "name": "JqueryFiller",
-            "description": "AMD module."
         },
         {
             "displayName": "singleFiller",
