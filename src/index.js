@@ -12,7 +12,7 @@ define(function (require, exports, module) {
 	var $ = require('jquery'),
 		_ = require('lodash');
 
-	var singleFiller = require('./__jquery.filler/single');
+	var mapFillers = require('./__jquery.filler/map-fillers');
 
 	/**
 	 * Generates a fill function.
@@ -23,7 +23,7 @@ define(function (require, exports, module) {
 	 *     Hash of property names, keyed by sizzle selector.
 	 *     { selector: propName }
 	 */
-	var filler = module.exports = function filler($parent, map) {
+	var filler = module.exports = function filler($parent, map, no_cache) {
 
 		if (arguments.length === 1) {
 			/**
@@ -34,11 +34,12 @@ define(function (require, exports, module) {
 			$parent = this;
 		}
 
+
+		// variable only accessible to internal methods.
+		var _private_ = {};
+
 		// [1] retrieve single fillers
-		var fillers = {};
-		_.each(map, function (selector, prop) {
-			fillers[prop] = singleFiller($parent, selector);
-		});
+		_private_.fillers = mapFillers($parent, map);
 
 
 		/**
@@ -50,7 +51,7 @@ define(function (require, exports, module) {
 		 * @prop currentData
 		 * @private
 		 */
-		var currentData = {};
+		_private_.currentData = {};
 
 		/**
 		 * Receives a data hash keyed by selector.
@@ -60,7 +61,11 @@ define(function (require, exports, module) {
 		 *     Hash of values, keyed by the propNames defined before.
 		 *     { propName: value }
 		 */
-		return function fill(data) {
+		var fill = function fill(data) {
+				// if no_cache is set, update fillers all the time.
+			var fillers = no_cache ? mapFillers($parent, map) : _private_.fillers,
+				currentData = _private_.currentData;
+
 			_.each(data, function (value, prop) {
 
 				// only fill the DOM with the value if it is different
@@ -74,6 +79,17 @@ define(function (require, exports, module) {
 				}
 			});
 		};
+
+		/**
+		 * Reselects elements from the map. Rebuilds fillers.
+		 *
+		 * @method update
+		 */
+		fill.update = function update() {
+			_private_.fillers = mapFillers($parent, map);
+		};
+
+		return fill;
 	};
 
 

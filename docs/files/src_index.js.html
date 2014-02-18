@@ -55,6 +55,8 @@
             
                 <li><a href="../modules/jquery.filler.html">jquery.filler</a></li>
             
+                <li><a href="../modules/mapFillers.html">mapFillers</a></li>
+            
                 <li><a href="../modules/singleFiller.html">singleFiller</a></li>
             
             </ul>
@@ -110,7 +112,7 @@ define(function (require, exports, module) {
 	var $ = require(&#x27;jquery&#x27;),
 		_ = require(&#x27;lodash&#x27;);
 
-	var singleFiller = require(&#x27;./__jquery.filler/single&#x27;);
+	var mapFillers = require(&#x27;./__jquery.filler/map-fillers&#x27;);
 
 	/**
 	 * Generates a fill function.
@@ -121,7 +123,7 @@ define(function (require, exports, module) {
 	 *     Hash of property names, keyed by sizzle selector.
 	 *     { selector: propName }
 	 */
-	var filler = module.exports = function filler($parent, map) {
+	var filler = module.exports = function filler($parent, map, no_cache) {
 
 		if (arguments.length === 1) {
 			/**
@@ -132,11 +134,12 @@ define(function (require, exports, module) {
 			$parent = this;
 		}
 
+
+		// variable only accessible to internal methods.
+		var _private_ = {};
+
 		// [1] retrieve single fillers
-		var fillers = {};
-		_.each(map, function (selector, prop) {
-			fillers[prop] = singleFiller($parent, selector);
-		});
+		_private_.fillers = mapFillers($parent, map);
 
 
 		/**
@@ -148,7 +151,7 @@ define(function (require, exports, module) {
 		 * @prop currentData
 		 * @private
 		 */
-		var currentData = {};
+		_private_.currentData = {};
 
 		/**
 		 * Receives a data hash keyed by selector.
@@ -158,7 +161,11 @@ define(function (require, exports, module) {
 		 *     Hash of values, keyed by the propNames defined before.
 		 *     { propName: value }
 		 */
-		return function fill(data) {
+		var fill = function fill(data) {
+				// if no_cache is set, update fillers all the time.
+			var fillers = no_cache ? mapFillers($parent, map) : _private_.fillers,
+				currentData = _private_.currentData;
+
 			_.each(data, function (value, prop) {
 
 				// only fill the DOM with the value if it is different
@@ -172,6 +179,17 @@ define(function (require, exports, module) {
 				}
 			});
 		};
+
+		/**
+		 * Reselects elements from the map. Rebuilds fillers.
+		 *
+		 * @method update
+		 */
+		fill.update = function update() {
+			_private_.fillers = mapFillers($parent, map);
+		};
+
+		return fill;
 	};
 
 
