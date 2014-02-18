@@ -1,6 +1,6 @@
 /**
  * Defines functionality for creating a filler for a single
- * element/element-attribute.
+ * html/html-method.
  *
  * @module jquery.filler
  * @submodule singleFiller
@@ -13,11 +13,11 @@ define(function (require, exports, module) {
 		_ = require('lodash');
 
 	var h = require('./helpers'),
-		attributeFiller = require('./attribute'),
-		elementFiller = require('./element');
+		methodFiller = require('./method'),
+		htmlFiller = require('./html');
 
 	/**
-	 * Creates a filler function for a single $el/$el attribute.
+	 * Creates a filler function for a single $el/$el method.
 	 *
 	 * @method singleFiller
 	 * @param $parent {jquery}
@@ -45,16 +45,16 @@ define(function (require, exports, module) {
 
 		} else {
 			// [1] parse selector
-			selector = h.splitInto(selector, '->', 'element->attribute');
+			selector = h.splitInto(selector, '->', 'element->method');
 
 			// [2] retrieve $el
 			var $el = selector.element ?
 				$parent.find(selector.element) :
 				$parent;
 
-			return selector.attribute ?
-				attributeFiller($el, selector.attribute) :
-				elementFiller($el);
+			return selector.method ?
+				methodFiller($el, selector.method) :
+				htmlFiller($el);
 		}
 	};
 });

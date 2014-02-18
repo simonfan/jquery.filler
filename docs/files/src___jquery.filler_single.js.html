@@ -98,7 +98,7 @@
     <pre class="code prettyprint linenums">
 /**
  * Defines functionality for creating a filler for a single
- * element/element-attribute.
+ * html/html-method.
  *
  * @module jquery.filler
  * @submodule singleFiller
@@ -111,11 +111,11 @@ define(function (require, exports, module) {
 		_ = require(&#x27;lodash&#x27;);
 
 	var h = require(&#x27;./helpers&#x27;),
-		attributeFiller = require(&#x27;./attribute&#x27;),
-		elementFiller = require(&#x27;./element&#x27;);
+		methodFiller = require(&#x27;./method&#x27;),
+		htmlFiller = require(&#x27;./html&#x27;);
 
 	/**
-	 * Creates a filler function for a single $el/$el attribute.
+	 * Creates a filler function for a single $el/$el method.
 	 *
 	 * @method singleFiller
 	 * @param $parent {jquery}
@@ -143,16 +143,16 @@ define(function (require, exports, module) {
 
 		} else {
 			// [1] parse selector
-			selector = h.splitInto(selector, &#x27;-&gt;&#x27;, &#x27;element-&gt;attribute&#x27;);
+			selector = h.splitInto(selector, &#x27;-&gt;&#x27;, &#x27;element-&gt;method&#x27;);
 
 			// [2] retrieve $el
 			var $el = selector.element ?
 				$parent.find(selector.element) :
 				$parent;
 
-			return selector.attribute ?
-				attributeFiller($el, selector.attribute) :
-				elementFiller($el);
+			return selector.method ?
+				methodFiller($el, selector.method) :
+				htmlFiller($el);
 		}
 	};
 });

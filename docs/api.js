@@ -31,7 +31,7 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "singleFiller",
             "name": "singleFiller",
-            "description": "Defines functionality for creating a filler for a single\nelement/element-attribute."
+            "description": "Defines functionality for creating a filler for a single\nhtml/html-method."
         }
     ]
 } };
