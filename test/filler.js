@@ -66,5 +66,40 @@
 			})
 			.should.eql(['cat', 'wolf']);
 		});
+
+		it('caches selections', function () {
+
+			// [1] create a filler
+			var fillFixture = $('#fixture').filler({
+				'divText': 'div',
+			});
+
+			// [2] append a div to the filler AFTER the filler has already been created.
+			var $original = $('#fixture').find('div');
+			var $afterDiv = $('<div id="after-div">AFTER</div>').appendTo($('#fixture'));
+
+			// [3] call fill
+			fillFixture({
+				divText: 'qwertyuiop'
+			});
+
+			// [4] original div should have been filled
+			$original.html().should.eql('qwertyuiop');
+			$afterDiv.html().should.eql('AFTER');
+
+			// [5] call update method
+			fillFixture.update();
+
+			// [6] fill again
+			fillFixture({
+				divText: 'new text'
+			});
+
+			// [7] test again: both should have same text
+			$original.html().should.eql('new text');
+			$afterDiv.html().should.eql('new text');
+
+
+		})
 	});
 });

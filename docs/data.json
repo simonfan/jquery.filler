@@ -24,6 +24,15 @@
             "fors": {},
             "namespaces": {}
         },
+        "src/__jquery.filler/map-fillers.js": {
+            "name": "src/__jquery.filler/map-fillers.js",
+            "modules": {
+                "mapFillers": 1
+            },
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
         "src/__jquery.filler/method.js": {
             "name": "src/__jquery.filler/method.js",
             "modules": {
@@ -58,6 +67,7 @@
             "submodules": {
                 "helpers": 1,
                 "element": 1,
+                "mapFillers": 1,
                 "attribute": 1,
                 "singleFiller": 1
             },
@@ -96,6 +106,19 @@
             "file": "src/__jquery.filler/html.js",
             "line": 12,
             "description": "Holds the html tag elFillers."
+        },
+        "mapFillers": {
+            "name": "mapFillers",
+            "submodules": {},
+            "classes": {},
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {},
+            "module": "jquery.filler",
+            "namespace": "",
+            "file": "src/__jquery.filler/map-fillers.js",
+            "line": 1,
+            "description": "Builds filler functions given an $el and a map object."
         },
         "attribute": {
             "name": "attribute",
@@ -210,6 +233,27 @@
             "submodule": "element"
         },
         {
+            "file": "src/__jquery.filler/map-fillers.js",
+            "line": 16,
+            "itemtype": "method",
+            "name": "mapFillers",
+            "params": [
+                {
+                    "name": "$el",
+                    "description": "",
+                    "type": "Jq Object"
+                },
+                {
+                    "name": "map",
+                    "description": "",
+                    "type": "Object"
+                }
+            ],
+            "class": "",
+            "module": "jquery.filler",
+            "submodule": "mapFillers"
+        },
+        {
             "file": "src/__jquery.filler/method.js",
             "line": 14,
             "description": "Generates a filler function for an attribute.",
@@ -300,7 +344,7 @@
         },
         {
             "file": "src/index.js",
-            "line": 44,
+            "line": 45,
             "description": "Var that holds the last set data.\nThese values will be verified before calling\nany filler, so that constant values are not \"re-filled\"\nin the dom.",
             "itemtype": "property",
             "name": "currentData",
@@ -311,7 +355,7 @@
         },
         {
             "file": "src/index.js",
-            "line": 55,
+            "line": 56,
             "description": "Receives a data hash keyed by selector.",
             "itemtype": "method",
             "name": "fill",
@@ -324,12 +368,21 @@
             ],
             "class": "",
             "module": "jquery.filler"
+        },
+        {
+            "file": "src/index.js",
+            "line": 83,
+            "description": "Reselects elements from the map. Rebuilds fillers.",
+            "itemtype": "method",
+            "name": "update",
+            "class": "",
+            "module": "jquery.filler"
         }
     ],
     "warnings": [
         {
             "message": "replacing incorrect tag: prop with property",
-            "line": " src/index.js:44"
+            "line": " src/index.js:45"
         },
         {
             "message": "Missing item type\nintercept only filling for checkboxes and radios\nas the default jquery .val() method sets the checkboxes and radio input\nvalues instead of checking them (if the value is not passed in as an array)",

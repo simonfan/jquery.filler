@@ -1,0 +1,1 @@
+define(["require","exports","module","jquery","lodash","./single"],function(e,t,n){var r=e("jquery"),i=e("lodash"),s=e("./single"),o=n.exports=function(t,n){var r={};return i.each(n,function(e,n){r[n]=s(t,e)}),r}});

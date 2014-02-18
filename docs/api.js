@@ -8,6 +8,7 @@ YUI.add("yuidoc-meta", function(Y) {
         "element",
         "helpers",
         "jquery.filler",
+        "mapFillers",
         "singleFiller"
     ],
     "allModules": [
@@ -27,6 +28,11 @@ YUI.add("yuidoc-meta", function(Y) {
         {
             "displayName": "jquery.filler",
             "name": "jquery.filler"
+        },
+        {
+            "displayName": "mapFillers",
+            "name": "mapFillers",
+            "description": "Builds filler functions given an $el and a map object."
         },
         {
             "displayName": "singleFiller",

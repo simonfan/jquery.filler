@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>src/__jquery.filler/html.js - jquery.filler</title>
+    <title>mapFillers - jquery.filler</title>
     <link rel="stylesheet" href="http://yui.yahooapis.com/3.9.1/build/cssgrids/cssgrids-min.css">
     <link rel="stylesheet" href="../assets/vendor/prettify/prettify-min.css">
     <link rel="stylesheet" href="../assets/css/main.css" id="site_styles">
@@ -94,83 +94,38 @@
             <div class="apidocs">
                 <div id="docs-main">
                     <div class="content">
-                        <h1 class="file-heading">File: src/__jquery.filler/html.js</h1>
+                        <h1>mapFillers Module</h1>
+<div class="box clearfix meta">
+    
 
-<div class="file">
-    <pre class="code prettyprint linenums">
-/**
- * @module jquery.filler
- * @submodule element
- */
+    
 
-define(function (require, exports, module) {
-	&#x27;use strict&#x27;;
+    
+        <div class="foundat">
+            Defined in: <a href="../files/src___jquery.filler_map-fillers.js.html#l1"><code>src&#x2F;__jquery.filler&#x2F;map-fillers.js:1</code></a>
+        </div>
+    
 
-	var $ = require(&#x27;jquery&#x27;),
-		_ = require(&#x27;lodash&#x27;);
-
-	/**
-	 * Holds the html tag elFillers.
-	 *
-	 * @class elFillers
-	 * @static
-	 */
-	var elFillers = {
-		default: function ($el, value) {
-			return $el.html(value);
-		},
-		INPUT: function ($el, value) {
-			/**
-			 * intercept only filling for checkboxes and radios
-			 * as the default jquery .val() method sets the checkboxes and radio input
-			 * values instead of checking them (if the value is not passed in as an array)
-			 */
-			var type = $el.prop(&#x27;type&#x27;);
-
-			if (type === &#x27;checkbox&#x27; || type === &#x27;radio&#x27;) {
-				value = _.isArray(value) ? value : [value];
-			}
-
-			return $el.val(value);
-		},
-		SELECT: function ($el, value) {
-			return $el.val(value);
-		},
-		IMG: function ($el, value) {
-			// trigger a change event when changing the image src
-			return $el.prop(&#x27;src&#x27;, value).trigger(&#x27;change&#x27;, value);
-		},
-
-		TEXTAREA: function ($el, value) {
-			return $el.val(value);
-		},
-	};
+    
+</div>
 
 
-	/**
-	 * Generates a filler function.
-	 *
-	 * @method elementFiller
-	 * @param $el {jQuery} The element on which perform task
-	 */
-	var elementFiller = module.exports = function elementFiller($el) {
-		var tag = $el.prop(&#x27;tagName&#x27;),
-			filler = elFillers[tag] || elFillers[&#x27;default&#x27;];
 
-		/**
-		 * Fills the element with a given value,
-		 * using different &#x27;filling-strategies&#x27; for each html tag.
-		 *
-		 * @method fillElement
-		 * @param value
-		 */
-		return function fillElement(value) {
-			return filler($el, value);
-		};
-	};
-});
+<div class="box intro">
+    <p>Builds filler functions given an $el and a map object.</p>
 
-    </pre>
+</div>
+
+
+
+<div class="yui3-g">
+    <div class="yui3-u-1-2">
+        
+    </div>
+
+    <div class="yui3-u-1-2">
+        
+    </div>
 </div>
 
                     </div>
