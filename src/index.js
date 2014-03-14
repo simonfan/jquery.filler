@@ -72,10 +72,16 @@ define(function (require, exports, module) {
 				// from the current value.
 				if (currentData[prop] !== value) {
 					// fillers is stored in the closure.
-					fillers[prop](value);
+					var filler = fillers[prop];
 
-					// set currentData
-					currentData[prop] = value;
+					// do NOTHING if no filler was defined
+					// BUG ISSUE: #1 - Undefined fillers
+					if (filler) {
+						filler(value);
+
+						// set currentData
+						currentData[prop] = value;
+					}
 				}
 			});
 		};

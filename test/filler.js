@@ -100,6 +100,18 @@
 			$afterDiv.html().should.eql('new text');
 
 
-		})
+		});
+
+		it('ignores data that has no filler defined for it.', function () {
+			var fillFixture = $('#fixture').filler({
+				'divText': 'div'
+			});
+
+			// call fill with some extra data
+			fillFixture({
+				divText: 'asfghjkl',
+				nonExistentProperty: 'zxcvbnm'
+			})
+		});
 	});
 });

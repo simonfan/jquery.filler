@@ -371,7 +371,7 @@
         },
         {
             "file": "src/index.js",
-            "line": 83,
+            "line": 89,
             "description": "Reselects elements from the map. Rebuilds fillers.",
             "itemtype": "method",
             "name": "update",
