@@ -132,9 +132,11 @@ define(function (require, exports, module) {
 		 */
 		return function fillElementAttribute(value) {
 			// add value to args
-			args.push(value);
+			// BE CAREFUL: we must clone the original args object.
+			var fillArgs = _.clone(args);
+			fillArgs.push(value);
 
-			return $el[method].apply($el, args);
+			return $el[method].apply($el, fillArgs);
 		};
 	};
 });

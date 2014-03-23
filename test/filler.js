@@ -113,5 +113,27 @@
 				nonExistentProperty: 'zxcvbnm'
 			})
 		});
+
+		describe('css on own properties', function () {
+
+
+			it('works on own properties', function () {
+				var fillFixture = $('#fixture').filler({
+					color: '->css:background-color',
+				});
+
+				fillFixture({
+					color: 'rgb(0, 20, 100)'
+				});
+
+				$('#fixture').css('background-color').should.eql('rgb(0, 20, 100)');
+
+				fillFixture({
+					color: 'rgb(0, 20, 55)'
+				});
+
+				$('#fixture').css('background-color').should.eql('rgb(0, 20, 55)');
+			})
+		})
 	});
 });
