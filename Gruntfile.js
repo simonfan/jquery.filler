@@ -126,6 +126,37 @@ module.exports = function (grunt) {
 				}
 			},
 
+			full: {
+				options: {
+					// base url where to look for module files
+					// and relative to which the module paths will be defined
+					// (must coincide with that defined in mainConfigFile)
+					baseUrl: './src',
+					// module name
+					name: 'jquery.filler',
+					// output here
+					out: './built/jquery.filler.full.js',
+					// config file
+					mainConfigFile: 'amdconfig.js',
+
+					// include these modules
+					include: [],
+
+					// exclude these modules AND their dependencies
+					// (excluding your bower dependencies)
+					exclude: ["jquery", "lodash"],
+
+					// excludeShallow
+					excludeShallow: [],
+
+					optimize: 'none',
+
+					pragmas: {
+						exclude: true,
+					},
+				}
+			},
+
 			project: {
 				options: {
 					// source files
