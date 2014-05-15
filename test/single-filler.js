@@ -4,7 +4,7 @@
 		// node
 		'.././src' :
 		// browser
-		'../src/__jquery.filler/single',
+		'../src/__jquery.filler/single/index.js',
 		// dependencies for the test
 		deps = [mod, 'should', 'text!../test/fixture.html'];
 

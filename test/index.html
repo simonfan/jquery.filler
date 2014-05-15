@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>JqueryFiller mocha unit tests</title>
+	<title>mocha unit tests</title>
 
 	<link rel="stylesheet" href="../node_modules/mocha/mocha.css">
 
@@ -13,20 +13,16 @@
 
 		require(['../amdconfig'], function(undef) {
 			// now that amdconfig is loaded, the base url is /src
-            require(['mocha','text!../test/tests.json'], function(mocha, tests) {
+            require(['mocha'], function (mocha) {
 
-                // use mocha with bdd
-                mocha.setup('bdd');
+		        // use mocha with bdd
+		        mocha.setup('bdd');
 
-                // parse test names
-                tests = JSON.parse(tests);
-
-                // load tests via requirejs
-                require(tests, function() {
-                    // run mocha
-                    mocha.checkLeaks();
-                    mocha.run();
-                });
+				// now that amdconfig is loaded, the base url is /src
+			    require(["/test/filler.js"], function() {
+			        mocha.checkLeaks();
+			        mocha.run();
+			    })
             })
 
 		});

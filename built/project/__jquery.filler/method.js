@@ -1,1 +1,0 @@
-define(["require","exports","module","jquery","lodash","./helpers"],function(e,t,n){var r=e("jquery"),i=e("lodash"),s=e("./helpers"),o=n.exports=function(t,n){var r=s.splitInto(n,":","method:argumentsString"),o=r.method,u=r.argumentsString?r.argumentsString.split(":"):[];return function(n){var r=i.clone(u);return r.push(n),t[o].apply(t,r)}}});

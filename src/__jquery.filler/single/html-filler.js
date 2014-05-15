@@ -50,12 +50,29 @@ define(function (require, exports, module) {
 	/**
 	 * Generates a filler function.
 	 *
-	 * @method elementFiller
-	 * @param $el {jQuery} The element on which perform task
+	 * @method htmlFiller
+	 * @param $selection {jQuery} The element on which perform task
 	 */
-	var elementFiller = module.exports = function elementFiller($el) {
-		var tag = $el.prop('tagName'),
-			filler = elFillers[tag] || elFillers['default'];
+	var htmlFiller = module.exports = function htmlFiller($selection) {
+
+		// [1] create a var to hold $elements grouped by their tagNames
+		var byTag = {};
+
+		// [2] loop through the $selection
+		_.each($selection, function (el) {
+
+			var $el = $(el);
+
+			// [2.1] get $el tagName
+			var tagName = $el.prop('tagName');
+
+			// [2.2] check if there is a group for that tagName
+			if (byTag[tagName]) {
+				byTag[tagName] = byTag[tagName].add(el);
+			} else {
+				byTag[tagName] = $el;
+			}
+		});
 
 		/**
 		 * Fills the element with a given value,
@@ -65,7 +82,12 @@ define(function (require, exports, module) {
 		 * @param value
 		 */
 		return function fillElement(value) {
-			return filler($el, value);
+			// loop through the elements grouped by tagname and fill
+			_.each(byTag, function ($el, tag) {
+
+				var fill = elFillers[tag] || elFillers['default'];
+				fill($el, value);
+			});
 		};
 	};
 });

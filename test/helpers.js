@@ -4,7 +4,7 @@
 		// node
 		'.././src' :
 		// browser
-		'../src/__jquery.filler/helpers',
+		'../src/__jquery.filler/helpers.js',
 		// dependencies for the test
 		deps = [mod, 'should'];
 
