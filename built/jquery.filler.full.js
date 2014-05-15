@@ -9,33 +9,60 @@ define('__jquery.filler/helpers',['require','exports','module','lodash'],functio
 
 	var _ = require('lodash');
 
+	// sample: 'method: argument : anotherArgument'
+	function parseMethod(str) {
 
-	exports.splitter = function splitter(s) {
-		return new RegExp('\\s*' + s + '\\s*');
+		var split = str.split(/\s*:\s*/);
+
+		return {
+			name     : split.shift(),
+			arguments: split
+		};
+	}
+
+
+	var selectorMatcher = /^\s*(.*?)\s*(?:->\s*(.+?)\s*)?$/;
+	// sample: '.some-class ->  method:argument'
+	// sample: ' -> method:arg'
+	exports.parseAction = function parseAction(str) {
+		var match = str.match(selectorMatcher);
+
+		// [0] matched string
+		// [1] captured selector
+		// [2] captured methodString
+
+		var res = {};
+
+		if (match) {
+
+			// action-type
+			if (match[1] && match[1] !== '') {
+				// on sub elements
+				res.subject  = 'sub-elements';
+				res.selector = match[1];
+			} else {
+				// on self.
+				res.subject = 'self';
+			}
+
+			// filler-type
+			if (match[2]) {
+				// method
+				res.type   = 'method';
+				res.method = parseMethod(match[2]);
+
+			} else {
+				// html
+				res.type = 'html';
+			}
+
+		} else {
+			throw new Error('Invalid jquery.filler selector: ' + str);
+		}
+
+		return res;
 	};
 
-	/**
-	 *
-	 *
-	 * @method splitInto
-	 * @param string {String} string to be split
-	 * @param separator {String}
-	 * @param format {String}
-	 */
-	exports.splitInto = function splitInto(string, separator, format) {
-
-		// build a separator.
-		separator = exports.splitter(separator);
-
-		// destination
-		format = format.split(separator);
-
-		// get the source array
-		var source = string.split(separator);
-
-		// zip and return happily :)
-		return _.zipObject(format, source);
-	};
 });
 
 /**
@@ -43,40 +70,34 @@ define('__jquery.filler/helpers',['require','exports','module','lodash'],functio
  * @submodule attribute
  */
 
-define('__jquery.filler/method',['require','exports','module','jquery','lodash','./helpers'],function (require, exports, module) {
+define('__jquery.filler/single/method-filler',['require','exports','module','jquery','lodash'],function (require, exports, module) {
 	
 
 	var $ = require('jquery'),
 		_ = require('lodash');
-
-	var h = require('./helpers');
-
 	/**
 	 * Generates a filler function for an attribute.
 	 *
 	 * @method methodFiller
 	 * @param $el {jQuery} The element on which perform task
-	 * @param methodString {String}
+	 * @param methodData {String}
 	 */
-	var methodFiller = module.exports = function methodFiller($el, methodString) {
-			// parse options
-		var options = h.splitInto(methodString, ':', 'method:argumentsString'),
-			// method
-			method = options.method,
-			// parse out arguments
-			args = options.argumentsString ? options.argumentsString.split(':') : [];
+	var methodFiller = module.exports = function methodFiller($el, methodData) {
+
+		var methodName = methodData.name,
+			methodArgs = methodData.arguments;
 
 		/**
 		 * @method fillAttribute
 		 * @param value {*}
 		 */
 		return function fillElementAttribute(value) {
-			// add value to args
-			// BE CAREFUL: we must clone the original args object.
-			var fillArgs = _.clone(args);
+			// add value to methodArgs
+			// BE CAREFUL: we must clone the original methodArgs object.
+			var fillArgs = _.clone(methodArgs);
 			fillArgs.push(value);
 
-			return $el[method].apply($el, fillArgs);
+			return $el[methodName].apply($el, fillArgs);
 		};
 	};
 });
@@ -86,7 +107,7 @@ define('__jquery.filler/method',['require','exports','module','jquery','lodash',
  * @submodule element
  */
 
-define('__jquery.filler/html',['require','exports','module','jquery','lodash'],function (require, exports, module) {
+define('__jquery.filler/single/html-filler',['require','exports','module','jquery','lodash'],function (require, exports, module) {
 	
 
 	var $ = require('jquery'),
@@ -133,12 +154,29 @@ define('__jquery.filler/html',['require','exports','module','jquery','lodash'],f
 	/**
 	 * Generates a filler function.
 	 *
-	 * @method elementFiller
-	 * @param $el {jQuery} The element on which perform task
+	 * @method htmlFiller
+	 * @param $selection {jQuery} The element on which perform task
 	 */
-	var elementFiller = module.exports = function elementFiller($el) {
-		var tag = $el.prop('tagName'),
-			filler = elFillers[tag] || elFillers['default'];
+	var htmlFiller = module.exports = function htmlFiller($selection) {
+
+		// [1] create a var to hold $elements grouped by their tagNames
+		var byTag = {};
+
+		// [2] loop through the $selection
+		_.each($selection, function (el) {
+
+			var $el = $(el);
+
+			// [2.1] get $el tagName
+			var tagName = $el.prop('tagName');
+
+			// [2.2] check if there is a group for that tagName
+			if (byTag[tagName]) {
+				byTag[tagName] = byTag[tagName].add(el);
+			} else {
+				byTag[tagName] = $el;
+			}
+		});
 
 		/**
 		 * Fills the element with a given value,
@@ -148,7 +186,12 @@ define('__jquery.filler/html',['require','exports','module','jquery','lodash'],f
 		 * @param value
 		 */
 		return function fillElement(value) {
-			return filler($el, value);
+			// loop through the elements grouped by tagname and fill
+			_.each(byTag, function ($el, tag) {
+
+				var fill = elFillers[tag] || elFillers['default'];
+				fill($el, value);
+			});
 		};
 	};
 });
@@ -161,37 +204,43 @@ define('__jquery.filler/html',['require','exports','module','jquery','lodash'],f
  * @submodule singleFiller
  */
 
-define('__jquery.filler/single',['require','exports','module','jquery','lodash','./helpers','./method','./html'],function (require, exports, module) {
+define('__jquery.filler/single/index',['require','exports','module','jquery','lodash','../helpers','./method-filler','./html-filler'],function (require, exports, module) {
 	
 
 	var $ = require('jquery'),
 		_ = require('lodash');
 
-	var h = require('./helpers'),
-		methodFiller = require('./method'),
-		htmlFiller = require('./html');
+	var h = require('../helpers'),
+		methodFiller = require('./method-filler'),
+		htmlFiller = require('./html-filler');
+
 
 	/**
 	 * Creates a filler function for a single $el/$el method.
 	 *
 	 * @method singleFiller
 	 * @param $parent {jquery}
-	 * @param selector {String}
+	 * @param action {String}
 	 */
-	var singleFiller = module.exports = function singleFiller($parent, selector) {
+	var singleFiller = module.exports = function singleFiller() {
+
+		var $parent, action;
 
 		// normalize parameters
-		if (arguments.length === 1 && _.isString($parent)) {
-			selector = $parent;
+		if (arguments.length === 1 && _.isString(arguments[0])) {
 			$parent = $(window);
+			action  = arguments[0];
+		} else {
+			$parent = arguments[0];
+			action  = arguments[1];
 		}
 
-		if (_.isArray(selector)) {
-			// if the selector is an array, return an aggregate function
-			// that fills both selectors.
+
+		if (_.isArray(action)) {
+			// ARRAY ACTION = ['selector', 'selector -> method:argument'];
 
 			// [1] retrieve the 'subfill' methods
-			var subfills = _.map(selector, _.partial(singleFiller, $parent));
+			var subfills = _.map(action, _.partial(singleFiller, $parent));
 
 			// [2] build an aggregate fill and return it.
 			return function fill(value) {
@@ -199,16 +248,22 @@ define('__jquery.filler/single',['require','exports','module','jquery','lodash',
 			};
 
 		} else {
-			// [1] parse selector
-			selector = h.splitInto(selector, '->', 'element->method');
 
-			// [2] retrieve $el
-			var $el = selector.element ?
-				$parent.find(selector.element) :
+			// STRING SELECTOR
+
+			// [1] parse action
+			action = h.parseAction(action);
+
+			console.log(action);
+
+			// [2] retrieve $el depending on the action subject (either 'self' or 'sub-elements')
+			var $el = action.subject === 'sub-elements' ?
+				$parent.find(action.selector) :
 				$parent;
 
-			return selector.method ?
-				methodFiller($el, selector.method) :
+			// [3] build the filler based on action type (either 'method' or 'html')
+			return action.type === 'method' ?
+				methodFiller($el, action.method) :
 				htmlFiller($el);
 		}
 	};
@@ -221,13 +276,13 @@ define('__jquery.filler/single',['require','exports','module','jquery','lodash',
  * @submodule mapFillers
  */
 
-define('__jquery.filler/map-fillers',['require','exports','module','jquery','lodash','./single'],function (require, exports, module) {
+define('__jquery.filler/map-fillers',['require','exports','module','jquery','lodash','./single/index'],function (require, exports, module) {
 	
 
 	var $ = require('jquery'),
 		_ = require('lodash');
 
-	var singleFiller = require('./single');
+	var singleFiller = require('./single/index');
 
 	/**
 	 *

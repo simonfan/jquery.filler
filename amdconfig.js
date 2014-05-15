@@ -12,7 +12,10 @@ require.config({
 		mapo: '../bower_components/mapo/built/mapo',
 		qunit: '../bower_components/qunit/qunit/qunit',
 		'requirejs-text': '../bower_components/requirejs-text/text',
-		underscore: '../bower_components/underscore/underscore'
+		underscore: '../bower_components/underscore/underscore',
+		'__jquery.filler/': '__jquery.filler/',
+		helpers: '__jquery.filler/helpers',
+		singleFiller: '__jquery.filler/single/index'
 	},
 	shim: {
 		backbone: {

@@ -108,33 +108,60 @@ define(function (require, exports, module) {
 
 	var _ = require(&#x27;lodash&#x27;);
 
+	// sample: &#x27;method: argument : anotherArgument&#x27;
+	function parseMethod(str) {
 
-	exports.splitter = function splitter(s) {
-		return new RegExp(&#x27;\\s*&#x27; + s + &#x27;\\s*&#x27;);
+		var split = str.split(/\s*:\s*/);
+
+		return {
+			name     : split.shift(),
+			arguments: split
+		};
+	}
+
+
+	var selectorMatcher = /^\s*(.*?)\s*(?:-&gt;\s*(.+?)\s*)?$/;
+	// sample: &#x27;.some-class -&gt;  method:argument&#x27;
+	// sample: &#x27; -&gt; method:arg&#x27;
+	exports.parseAction = function parseAction(str) {
+		var match = str.match(selectorMatcher);
+
+		// [0] matched string
+		// [1] captured selector
+		// [2] captured methodString
+
+		var res = {};
+
+		if (match) {
+
+			// action-type
+			if (match[1] &amp;&amp; match[1] !== &#x27;&#x27;) {
+				// on sub elements
+				res.subject  = &#x27;sub-elements&#x27;;
+				res.selector = match[1];
+			} else {
+				// on self.
+				res.subject = &#x27;self&#x27;;
+			}
+
+			// filler-type
+			if (match[2]) {
+				// method
+				res.type   = &#x27;method&#x27;;
+				res.method = parseMethod(match[2]);
+
+			} else {
+				// html
+				res.type = &#x27;html&#x27;;
+			}
+
+		} else {
+			throw new Error(&#x27;Invalid jquery.filler selector: &#x27; + str);
+		}
+
+		return res;
 	};
 
-	/**
-	 *
-	 *
-	 * @method splitInto
-	 * @param string {String} string to be split
-	 * @param separator {String}
-	 * @param format {String}
-	 */
-	exports.splitInto = function splitInto(string, separator, format) {
-
-		// build a separator.
-		separator = exports.splitter(separator);
-
-		// destination
-		format = format.split(separator);
-
-		// get the source array
-		var source = string.split(separator);
-
-		// zip and return happily :)
-		return _.zipObject(format, source);
-	};
 });
 
     </pre>

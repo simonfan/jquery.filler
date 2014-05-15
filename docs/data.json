@@ -4,17 +4,8 @@
         "version": "0.0.0"
     },
     "files": {
-        "src/__jquery.filler/helpers.js": {
-            "name": "src/__jquery.filler/helpers.js",
-            "modules": {
-                "helpers": 1
-            },
-            "classes": {},
-            "fors": {},
-            "namespaces": {}
-        },
-        "src/__jquery.filler/html.js": {
-            "name": "src/__jquery.filler/html.js",
+        "src/__jquery.filler/single/html-filler.js": {
+            "name": "src/__jquery.filler/single/html-filler.js",
             "modules": {
                 "element": 1
             },
@@ -24,17 +15,17 @@
             "fors": {},
             "namespaces": {}
         },
-        "src/__jquery.filler/map-fillers.js": {
-            "name": "src/__jquery.filler/map-fillers.js",
+        "src/__jquery.filler/single/index.js": {
+            "name": "src/__jquery.filler/single/index.js",
             "modules": {
-                "mapFillers": 1
+                "singleFiller": 1
             },
             "classes": {},
             "fors": {},
             "namespaces": {}
         },
-        "src/__jquery.filler/method.js": {
-            "name": "src/__jquery.filler/method.js",
+        "src/__jquery.filler/single/method-filler.js": {
+            "name": "src/__jquery.filler/single/method-filler.js",
             "modules": {
                 "attribute": 1
             },
@@ -42,10 +33,19 @@
             "fors": {},
             "namespaces": {}
         },
-        "src/__jquery.filler/single.js": {
-            "name": "src/__jquery.filler/single.js",
+        "src/__jquery.filler/helpers.js": {
+            "name": "src/__jquery.filler/helpers.js",
             "modules": {
-                "singleFiller": 1
+                "helpers": 1
+            },
+            "classes": {},
+            "fors": {},
+            "namespaces": {}
+        },
+        "src/__jquery.filler/map-fillers.js": {
+            "name": "src/__jquery.filler/map-fillers.js",
+            "modules": {
+                "mapFillers": 1
             },
             "classes": {},
             "fors": {},
@@ -65,11 +65,11 @@
         "jquery.filler": {
             "name": "jquery.filler",
             "submodules": {
-                "helpers": 1,
                 "element": 1,
-                "mapFillers": 1,
+                "singleFiller": 1,
                 "attribute": 1,
-                "singleFiller": 1
+                "helpers": 1,
+                "mapFillers": 1
             },
             "classes": {
                 "elFillers": 1
@@ -77,8 +77,48 @@
             "fors": {},
             "namespaces": {},
             "tag": "module",
-            "file": "src/__jquery.filler/html.js",
+            "file": "src/__jquery.filler/single/html-filler.js",
             "line": 12
+        },
+        "element": {
+            "name": "element",
+            "submodules": {},
+            "classes": {
+                "elFillers": 1
+            },
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {},
+            "module": "jquery.filler",
+            "namespace": "",
+            "file": "src/__jquery.filler/single/html-filler.js",
+            "line": 12,
+            "description": "Holds the html tag elFillers."
+        },
+        "singleFiller": {
+            "name": "singleFiller",
+            "submodules": {},
+            "classes": {},
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {},
+            "module": "jquery.filler",
+            "namespace": "",
+            "file": "src/__jquery.filler/single/index.js",
+            "line": 1,
+            "description": "Defines functionality for creating a filler for a single\nhtml/html-method."
+        },
+        "attribute": {
+            "name": "attribute",
+            "submodules": {},
+            "classes": {},
+            "fors": {},
+            "is_submodule": 1,
+            "namespaces": {},
+            "module": "jquery.filler",
+            "namespace": "",
+            "file": "src/__jquery.filler/single/method-filler.js",
+            "line": 1
         },
         "helpers": {
             "name": "helpers",
@@ -92,21 +132,6 @@
             "file": "src/__jquery.filler/helpers.js",
             "line": 1
         },
-        "element": {
-            "name": "element",
-            "submodules": {},
-            "classes": {
-                "elFillers": 1
-            },
-            "fors": {},
-            "is_submodule": 1,
-            "namespaces": {},
-            "module": "jquery.filler",
-            "namespace": "",
-            "file": "src/__jquery.filler/html.js",
-            "line": 12,
-            "description": "Holds the html tag elFillers."
-        },
         "mapFillers": {
             "name": "mapFillers",
             "submodules": {},
@@ -119,31 +144,6 @@
             "file": "src/__jquery.filler/map-fillers.js",
             "line": 1,
             "description": "Builds filler functions given an $el and a map object."
-        },
-        "attribute": {
-            "name": "attribute",
-            "submodules": {},
-            "classes": {},
-            "fors": {},
-            "is_submodule": 1,
-            "namespaces": {},
-            "module": "jquery.filler",
-            "namespace": "",
-            "file": "src/__jquery.filler/method.js",
-            "line": 1
-        },
-        "singleFiller": {
-            "name": "singleFiller",
-            "submodules": {},
-            "classes": {},
-            "fors": {},
-            "is_submodule": 1,
-            "namespaces": {},
-            "module": "jquery.filler",
-            "namespace": "",
-            "file": "src/__jquery.filler/single.js",
-            "line": 1,
-            "description": "Defines functionality for creating a filler for a single\nhtml/html-method."
         }
     },
     "classes": {
@@ -158,7 +158,7 @@
             "module": "jquery.filler",
             "submodule": "element",
             "namespace": "",
-            "file": "src/__jquery.filler/html.js",
+            "file": "src/__jquery.filler/single/html-filler.js",
             "line": 12,
             "description": "Holds the html tag elFillers.",
             "static": 1
@@ -166,33 +166,7 @@
     },
     "classitems": [
         {
-            "file": "src/__jquery.filler/helpers.js",
-            "line": 16,
-            "itemtype": "method",
-            "name": "splitInto",
-            "params": [
-                {
-                    "name": "string",
-                    "description": "string to be split",
-                    "type": "String"
-                },
-                {
-                    "name": "separator",
-                    "description": "",
-                    "type": "String"
-                },
-                {
-                    "name": "format",
-                    "description": "",
-                    "type": "String"
-                }
-            ],
-            "class": "elFillers",
-            "module": "jquery.filler",
-            "submodule": "helpers"
-        },
-        {
-            "file": "src/__jquery.filler/html.js",
+            "file": "src/__jquery.filler/single/html-filler.js",
             "line": 23,
             "description": "intercept only filling for checkboxes and radios\nas the default jquery .val() method sets the checkboxes and radio input\nvalues instead of checking them (if the value is not passed in as an array)",
             "class": "elFillers",
@@ -200,14 +174,14 @@
             "submodule": "element"
         },
         {
-            "file": "src/__jquery.filler/html.js",
+            "file": "src/__jquery.filler/single/html-filler.js",
             "line": 50,
             "description": "Generates a filler function.",
             "itemtype": "method",
-            "name": "elementFiller",
+            "name": "htmlFiller",
             "params": [
                 {
-                    "name": "$el",
+                    "name": "$selection",
                     "description": "The element on which perform task",
                     "type": "JQuery"
                 }
@@ -217,8 +191,8 @@
             "submodule": "element"
         },
         {
-            "file": "src/__jquery.filler/html.js",
-            "line": 60,
+            "file": "src/__jquery.filler/single/html-filler.js",
+            "line": 77,
             "description": "Fills the element with a given value,\nusing different 'filling-strategies' for each html tag.",
             "itemtype": "method",
             "name": "fillElement",
@@ -231,6 +205,66 @@
             "class": "elFillers",
             "module": "jquery.filler",
             "submodule": "element"
+        },
+        {
+            "file": "src/__jquery.filler/single/index.js",
+            "line": 20,
+            "description": "Creates a filler function for a single $el/$el method.",
+            "itemtype": "method",
+            "name": "singleFiller",
+            "params": [
+                {
+                    "name": "$parent",
+                    "description": "",
+                    "type": "Jquery"
+                },
+                {
+                    "name": "action",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "",
+            "module": "jquery.filler",
+            "submodule": "singleFiller"
+        },
+        {
+            "file": "src/__jquery.filler/single/method-filler.js",
+            "line": 11,
+            "description": "Generates a filler function for an attribute.",
+            "itemtype": "method",
+            "name": "methodFiller",
+            "params": [
+                {
+                    "name": "$el",
+                    "description": "The element on which perform task",
+                    "type": "JQuery"
+                },
+                {
+                    "name": "methodData",
+                    "description": "",
+                    "type": "String"
+                }
+            ],
+            "class": "",
+            "module": "jquery.filler",
+            "submodule": "attribute"
+        },
+        {
+            "file": "src/__jquery.filler/single/method-filler.js",
+            "line": 23,
+            "itemtype": "method",
+            "name": "fillAttribute",
+            "params": [
+                {
+                    "name": "value",
+                    "description": "",
+                    "type": "*"
+                }
+            ],
+            "class": "",
+            "module": "jquery.filler",
+            "submodule": "attribute"
         },
         {
             "file": "src/__jquery.filler/map-fillers.js",
@@ -252,66 +286,6 @@
             "class": "",
             "module": "jquery.filler",
             "submodule": "mapFillers"
-        },
-        {
-            "file": "src/__jquery.filler/method.js",
-            "line": 14,
-            "description": "Generates a filler function for an attribute.",
-            "itemtype": "method",
-            "name": "methodFiller",
-            "params": [
-                {
-                    "name": "$el",
-                    "description": "The element on which perform task",
-                    "type": "JQuery"
-                },
-                {
-                    "name": "methodString",
-                    "description": "",
-                    "type": "String"
-                }
-            ],
-            "class": "",
-            "module": "jquery.filler",
-            "submodule": "attribute"
-        },
-        {
-            "file": "src/__jquery.filler/method.js",
-            "line": 29,
-            "itemtype": "method",
-            "name": "fillAttribute",
-            "params": [
-                {
-                    "name": "value",
-                    "description": "",
-                    "type": "*"
-                }
-            ],
-            "class": "",
-            "module": "jquery.filler",
-            "submodule": "attribute"
-        },
-        {
-            "file": "src/__jquery.filler/single.js",
-            "line": 19,
-            "description": "Creates a filler function for a single $el/$el method.",
-            "itemtype": "method",
-            "name": "singleFiller",
-            "params": [
-                {
-                    "name": "$parent",
-                    "description": "",
-                    "type": "Jquery"
-                },
-                {
-                    "name": "selector",
-                    "description": "",
-                    "type": "String"
-                }
-            ],
-            "class": "",
-            "module": "jquery.filler",
-            "submodule": "singleFiller"
         },
         {
             "file": "src/index.js",
@@ -386,7 +360,7 @@
         },
         {
             "message": "Missing item type\nintercept only filling for checkboxes and radios\nas the default jquery .val() method sets the checkboxes and radio input\nvalues instead of checking them (if the value is not passed in as an array)",
-            "line": " src/__jquery.filler/html.js:23"
+            "line": " src/__jquery.filler/single/html-filler.js:23"
         },
         {
             "message": "Missing item type\nIf the function was invoked with only one argument,\nit means that it was invoked as a '$parent's method.",
